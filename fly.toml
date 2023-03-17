@@ -1,6 +1,6 @@
-# fly.toml file generated for gsa on 2023-03-17T18:41:24Z
+# fly.toml file generated for starwarsclub on 2023-03-17T19:54:30Z
 
-app = "gsa"
+app = "starwarsclub"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "lax"
