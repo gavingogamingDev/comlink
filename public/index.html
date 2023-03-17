@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAY Chat</title>
+    <link href="https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css" rel="stylesheet"/>
+    <link href="index.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <div class="content">
+        <center><h1>GSA Chat Server</h1><h3>coded with <a style="color: lightcoral;">&lt;3</a> by GavinGoGaming</h3></center>
+        <ul class="chats">
+        </ul><br><center>
+        <input placeholder="Your Message" id="msg"> <button id="send">Send</button></center>
+    </div>
+    <script>
+        var chats = document.querySelector('.chats');
+        var message = document.querySelector('#msg');
+        var button = document.querySelector('#send');
+        button.addEventListener('click', (e) => {
+            if(message.value == "" || message.value == " ") {
+                return;
+            }
+            chats.insertAdjacentHTML('beforeend', `<li><b>${window.localStorage.name}</b>: ${message.value}</li>`);
+            fetch('/post', {
+                headers: new Headers({'Content-Type': 'application/json'}),
+                body: JSON.stringify({
+                    title: "Title_Not_Implemented",
+                    content: message.value,
+                    author: window.localStorage.name
+                }),
+                method: 'POST'
+            })
+            .then((nune) => message.value = "")
+            .catch(exc);
+            $(".chats").animate({ scrollTop: $('.chats').prop("scrollHeight")}, 500);
+        });
+        function load() {
+            fetch('/list')
+            .then(res => res.json())
+            .then(res => {
+                for(var one of res) {
+                    chats.insertAdjacentHTML('beforeend', `<li><b>${one.author}</b>: ${one.content}</li>`);
+                    $(".chats").animate({ scrollTop: $('.chats').prop("scrollHeight")}, 500);
+                }
+            });
+        }
+        function update() {
+            fetch('/list')
+            .then(res => res.json())
+            .then(res => {
+                for(var one of res) {
+                    if(chats.innerHTML.includes(`<li><b>${one.author}</b>: ${one.content}</li>`)) {
+                        
+                    }else {
+                        chats.insertAdjacentHTML('beforeend', `<li><b>${one.author}</b>: ${one.content}</li>`);
+                        $(".chats").animate({ scrollTop: $('.chats').prop("scrollHeight")}, 500);
+                    }
+                }
+            });
+        }
+        setInterval(update, 500);
+        function startup() {
+            if(window.localStorage.name == null) {
+                var result = prompt("Enter your South Pasadena school email (ex. firstlast0@stu.spusd.net)");
+                window.localStorage.name = result.substring(0, result.length - 14);
+            }else {
+
+            }
+            load();
+            $(".chats").animate({ scrollTop: $('.chats').prop("scrollHeight")}, 500);
+            message.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    if(event.shiftKey) {
+                        message.value += '\n';
+                    }else {
+                        event.preventDefault();
+                        button.click();
+                    }
+                }
+            });
+        }
+        startup();
+    </script>
+</body>
+</html>

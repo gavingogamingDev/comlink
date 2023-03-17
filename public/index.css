@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Roboto:wght@300&display=swap');
+
+html,body {
+    padding: 0;
+    margin: 0;
+    background-color: #1a1a1a;
+    color: white;
+    font-family: Roboto, sans-serif;
+}
+.chats {
+    width: 70vw;
+    list-style-type: none;
+    overflow-y: auto;
+    height: 50vh;
+    margin-left: 15vw;
+}
+input {
+    border-radius: 30px;
+    background-color: #1a1a1a;
+    border: 1.3px solid #ababab;
+    padding: 10px;
+    color: white;
+    outline: none;
+    width: 36vw;
+}
+button {
+    border-radius: 30px;
+    background-color: #959595;
+    border: 1.3px solid #ababab;
+    color: black;
+    padding: 10px;
+    outline: none;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #ababab;
+}
+.chats li {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #333;
+    margin-top: 5px;
+    border-radius: 10px;
+}
